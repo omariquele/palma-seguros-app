@@ -1,26 +1,40 @@
 <template>
   <div class="welcome-page">
-    <img src="/src/assets/palmalogo.png" alt="Logo" class="logo">
-    <div class="welcome-text">
-      Caro utilizador da Palma Seguros:
-      <div>Com este aplicativo você já:</div>
-      <div class="text-left custom-text-style">
-        <ul>
-          <li>Pagar Apolices</li>
-          <li>Visualizar o documento Apolice</li>
-          <li>Ver a sua Viatura em tempo Real</li>
-          <li>Participar Sinistros</li>
-          <li>E muito mais..</li>
-        </ul>
+    <BgImageComponent />
+    <div class="content-wrapper">
+      <img src="palmalogo.png" alt="Logo" class="logo">
+           <div class="welcome-text text-bold">
+        Caro utilizador da Palma Seguros:
+        <div>Com este aplicativo você pode:</div>
+        <div class="text-left custom-text-style">
+          <ul>
+            <li>Pagar Apolices</li>
+            <li>Visualizar o documento Apolice</li>
+            <li>Ver a sua Viatura em tempo Real</li>
+            <li>Participar Sinistros</li>
+            <li>E muito mais..</li>
+          </ul>
+        </div>
       </div>
+      <q-btn
+        @click="goToMenu"
+        class="continue-button"
+        label="Continuar..."
+        rounded
+        color="primary"
+        size="xl"
+      />
     </div>
-    <q-btn @click="goToMenu" class="continue-button" label="Continuar" rounded color="primary" />
   </div>
 </template>
 
 <script>
+import BgImageComponent from 'src/components/BgImageComponent.vue';
 export default {
   name: 'WelcomePage',
+  components: {
+    BgImageComponent
+  },
   methods: {
     goToMenu() {
       this.$router.push('/menu');
@@ -35,44 +49,40 @@ export default {
 .welcome-page {
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   text-align: center;
   padding: 20px;
   overflow: hidden;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/src/assets/bg.png') no-repeat center center;
-    background-size: cover;
-    opacity: 0.5;
-    z-index: -1;
-  }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  text-align: center;
 }
 
 .logo {
-  width: 200px;
-  margin-bottom: 20px;
-  z-index: 1;
+  width: 200px; /* Adjust the size as needed */
+  margin-bottom: 20px; /* Adjust the spacing as needed */
 }
 
 .welcome-text {
   font-size: 1.8em;
   color: $primary;
-  z-index: 1;
 }
 
 .custom-text-style {
-  color: $accent;
-  font-size: 18px;
-  z-index: 1;
+  font-size: 0.7em;
+  color: $info;
+  background-color: $info;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 ul {
@@ -81,6 +91,5 @@ ul {
 
 .continue-button {
   margin-top: 20px;
-  z-index: 1;
 }
 </style>

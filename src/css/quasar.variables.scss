@@ -20,8 +20,9 @@ $accent: #000000 !default; /* Black */
 $dark: #000000 !default;
 $positive: rgba(209, 36, 33, 1) !default; /* Red for positive state */
 $negative: rgba(209, 36, 33, 1) !default; /* Red for negative state */
-$info: #808080 !default; /* Grey for info state */
+$info: hsl(0, 12%, 92%) !default; /* Grey for info state */
 $warning: #ff0000 !default; /* Red for warning state */
+$white-color:#fffbfb !default; /* White color */
 
 $body-bg: #ffffff !default; /* White background */
 $body-font-color: #000000 !default; /* Black text color */

@@ -1,19 +1,20 @@
 <template>
   <q-page class="menu-page text-center">
+    <BgImageComponent />
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
-      <img src="/src/assets/palmalogo.png" alt="Logo" class="logo">
+      <img src="palmalogo.png" alt="Logo" class="logo">
+
 
       <div class="page-title text-bold">
         Menu Principal
       </div>
-
 
       <div class="q-gutter-y-md button-group">
         <q-btn
           to="/seguro-particular"
           unelevated
           label="Seguro Particular"
-          color="primary"
+          color="secondary"
           rounded
           size="xl"
           no-caps
@@ -24,7 +25,7 @@
           to="/empresas"
           unelevated
           label="Seguro Empresas"
-          color="primary"
+          color="secondary"
           rounded
           size="xl"
           no-caps
@@ -59,8 +60,13 @@
 </template>
 
 <script>
+import BgImageComponent from 'src/components/BgImageComponent.vue';
+
 export default {
   name: 'MenuPage',
+  components: {
+    BgImageComponent
+  }
 }
 </script>
 
@@ -69,45 +75,47 @@ export default {
 
 .menu-page {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
-  background: url('/src/assets/bg.png') no-repeat center center;
-  background-size: cover;
+  position: relative;
+  overflow: hidden;
 }
 
 .content-wrapper {
-  max-width: 500px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
 }
 
 .logo {
-  width: 200px;
-  margin-bottom: 20px;
+  width: 200px; /* Adjust the size as needed */
+  margin-bottom: 6px; /* Adjust the spacing as needed */
 }
 
-.highlight {
-  background-color: rgba(74, 133, 79, 0.3);
-  padding: 5px 10px;
+.page-title {
+  font-size: 2em;
+  color: white;
+  background-color: $accent;
+  padding: 10px 20px;
   border-radius: 5px;
-  color: $primary;
-  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .button-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
 
 .full-width {
   width: 100%;
+  margin-bottom: 10px;
 }
-.page-title {
-  font-size: 2em;
-  color: #808080
-
-}
-
 </style>

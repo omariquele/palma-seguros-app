@@ -1,7 +1,7 @@
 {
   "name": "palma-seguros-app",
   "version": "0.0.1",
-  "description": "Aplicativo de pagamento de Seguros, visualizacao de apolicis, sinistros e muito mais...",
+  "description": "Aplicativo de pagamento de Seguros, visualizacao de apolices, sinistros e muito mais...",
   "productName": "Palma Seguros App",
   "author": "Olegario Mariquele <omariquele@vitae-erp.com>",
   "private": true,
@@ -15,8 +15,11 @@
   "dependencies": {
     "@quasar/extras": "^1.16.11",
     "axios": "^1.2.1",
+    "firebase": "^10.12.2",
+    "flag-icon-css": "^4.1.7",
     "pinia": "^2.0.11",
     "quasar": "^2.16.0",
+    "v-mask": "^2.3.0",
     "vue": "^3.4.18",
     "vue-router": "^4.0.12"
   },

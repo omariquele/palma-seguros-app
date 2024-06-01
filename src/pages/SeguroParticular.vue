@@ -1,8 +1,7 @@
 <template>
   <q-page class="seguro-particular-page text-center">
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
-      <img src="/src/assets/palmalogo.png" alt="Logo" class="logo">
-
+      <img src="palmalogo.png" alt="Logo" class="logo">
       <div class="page-title text-bold">
         Seguro Particular
       </div>
@@ -11,7 +10,7 @@
         <q-btn
           to="/seguro-automovel"
           unelevated
-          label="Seguro de Automóvel"
+          label="Automóvel"
           color="primary"
           rounded
           size="xl"
@@ -22,7 +21,7 @@
         <q-btn
           to="/seguro-multirriscos"
           unelevated
-          label="Seguro Multirriscos"
+          label="Multirriscos"
           color="primary"
           rounded
           size="xl"
@@ -33,7 +32,7 @@
         <q-btn
           to="/seguro-acidentes-pessoais"
           unelevated
-          label="Seguros de Acidentes Pessoais"
+          label="Acidentes Pessoais"
           color="primary"
           rounded
           size="xl"
@@ -44,7 +43,7 @@
         <q-btn
           to="/seguro-viagem"
           unelevated
-          label="Seguro de Viagem"
+          label="Viagem"
           color="primary"
           rounded
           size="xl"
@@ -55,7 +54,7 @@
         <q-btn
           to="/seguro-bagagem"
           unelevated
-          label="Seguro de Bagagem"
+          label="Bagagem"
           color="primary"
           rounded
           size="xl"
@@ -110,7 +109,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/src/assets/bg.png') no-repeat center center;
+  background: url('bg.png') no-repeat center center;
   background-size: cover;
 }
 
@@ -118,40 +117,38 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 200px;
-  margin-bottom: 20px;
+  width: 150px; /* Adjust the size as needed */
+  margin-bottom: 10px; /* Adjust the spacing as needed */
 }
 
-.highlight {
-  background-color: rgba(74, 133, 79, 0.3);
+.page-title {
+  font-size: 1.5em; /* Adjust the size as needed */
+  color: white;
+  background-color: $accent;
   padding: 5px 10px;
   border-radius: 5px;
-  color: $primary;
-  font-weight: bold;
+  margin-bottom: 10px; /* Adjust the spacing as needed */
 }
 
 .button-group {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .full-width {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .back-button {
-  margin-top: 20px;
-  border: 2px solid $primary; /* Red border */
-}
-
-.page-title {
-  font-size: 2em;
-  color: #808080
-
-
+  margin-top: 10px;
+  border: 2px solid $positive; /* Red border */
+  width: 100%;
 }
 </style>
