@@ -1,10 +1,7 @@
 <template>
   <q-page class="menu-page text-center">
-    <BgImageComponent />
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
       <img src="palmalogo.png" alt="Logo" class="logo">
-
-
       <div class="page-title text-bold">
         Menu Principal
       </div>
@@ -60,13 +57,8 @@
 </template>
 
 <script>
-import BgImageComponent from 'src/components/BgImageComponent.vue';
-
 export default {
-  name: 'MenuPage',
-  components: {
-    BgImageComponent
-  }
+  name: 'MenuPage'
 }
 </script>
 
@@ -78,44 +70,62 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  position: relative;
-  overflow: hidden;
+  background: url('bg.png') no-repeat center center;
+  background-size: cover;
 }
 
 .content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   max-width: 500px;
-  width: 100%;
-  padding: 20px;
-  z-index: 1;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 200px; /* Adjust the size as needed */
-  margin-bottom: 6px; /* Adjust the spacing as needed */
+  width: 150px; /* Adjust the size as needed */
+  margin-bottom: 10px; /* Adjust the spacing as needed */
 }
 
 .page-title {
-  font-size: 2em;
+  font-size: 1.5em; /* Adjust the size as needed */
   color: white;
   background-color: $accent;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Adjust the spacing as needed */
 }
 
 .button-group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
 .full-width {
   width: 100%;
   margin-bottom: 10px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 100px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .page-title {
+    font-size: 1.2em;
+    padding: 3px 8px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .full-width {
+    margin-bottom: 5px;
+  }
 }
 </style>

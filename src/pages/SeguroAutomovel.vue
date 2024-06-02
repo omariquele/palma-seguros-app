@@ -3,7 +3,6 @@
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
       <img src="palmalogo.png" alt="Logo" class="logo">
 
-
       <div class="page-title text-bold">
         Seguro Automóvel
       </div>
@@ -12,23 +11,23 @@
         <q-input
           filled
           label="Introduza a matrícula"
-          v-model="matricula"
+          v-model="serialNumber"
           class="full-width"
           input-style="font-size: 20pt"
-          @input="validateMatricula"
+          mask="AAA - ### - AA"
+          hint="Formato: AAA - 123 - MP"
         />
         <q-input
           filled
           label="Introduza o seu número de celular"
-          v-model="celular"
+          v-model="phone"
           class="full-width"
-          type="tel"
           :prefix="phonePrefix"
           input-style="font-size: 20pt"
-          @input="validateNumber"
-        >
+          mask="#########"
+          hint="Formato: (258) ##-###-####"
+        />
 
-        </q-input>
         <div v-if="celularError" class="error">{{ celularError }}</div>
       </div>
 
@@ -87,10 +86,7 @@ export default {
   name: 'SeguroAutomovelPage',
   data() {
     return {
-      matricula: '',
-      celular: '',
-      phonePrefix: '+258',
-      celularError: '',
+      phonePrefix: '258',
       otpDialog: false,
       otp: Array(4).fill(''),
       loading: true
@@ -108,44 +104,7 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    validateMatricula() {
-      const regex = /^[A-Z]{3}-\d{3}-[A-Z]{2}$/;
-      this.matricula = this.matricula.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-      if (this.matricula.length > 3 && this.matricula[3] !== '-') {
-        this.matricula = this.matricula.slice(0, 3) + '-' + this.matricula.slice(3);
-      }
-      if (this.matricula.length > 7 && this.matricula[7] !== '-') {
-        this.matricula = this.matricula.slice(0, 7) + '-' + this.matricula.slice(7);
-      }
-      if (!regex.test(this.matricula) && this.matricula.length === 9) {
-        this.matricula = this.matricula.slice(0, -1);
-      }
-    },
-    validateNumber() {
-      // Remove non-numeric characters, except for the prefix
-      const prefix = this.phonePrefix;
-      const allowedPrefixes = ['82', '83', '84', '85', '86', '87'];
-      let number = this.celular.replace(/\D/g, '').replace(prefix, '');
 
-      // Ensure the number starts with one of the allowed prefixes and has exactly 9 digits after the prefix
-      if (number.length > 9) {
-        number = number.slice(0, 9);
-      }
-
-      const prefixPart = number.slice(0, 2);
-      if (!allowedPrefixes.includes(prefixPart)) {
-        number = '';
-      }
-
-      this.celular = prefix + number;
-    },
-    isValidCelular() {
-      const prefix = this.phonePrefix;
-      const allowedPrefixes = ['82', '83', '84', '85', '86', '87'];
-      const number = this.celular.replace(prefix, '');
-      const prefixPart = number.slice(0, 2);
-      return number.length === 9 && allowedPrefixes.includes(prefixPart);
-    },
     openOtpDialog() {
       this.loading = true;
       this.otpDialog = true;
@@ -188,24 +147,21 @@ $white-color: rgba(255, 255, 255, 1);
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 300px;
-  margin-bottom: 20px;
+  width: 150px;
+  margin-bottom: 10px; /* Reduced spacing */
 }
 
 .page-title {
-  font-size: 2em;
+  font-size: 1.5em; /* Adjust the size as needed */
   color: white;
-  background-color: $accent;
-  padding: 10px 20px;
+  background-color: $secondary;
+  padding: 5px 10px;
   border-radius: 5px;
-  display: inline-block;
-}
-
-.highlight {
-  color: white;
+  margin-bottom: 10px; /* Reduced spacing */
 }
 
 .input-group {
@@ -248,5 +204,31 @@ $white-color: rgba(255, 255, 255, 1);
   color: $white-color;
   font-size: 2.5em;
   border-radius: 8px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 100px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .page-title {
+    font-size: 1.2em;
+    padding: 3px 8px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .full-width {
+    margin-bottom: 5px;
+  }
+
+  .back-button {
+    margin-top: 5px;
+  }
 }
 </style>

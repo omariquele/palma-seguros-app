@@ -122,16 +122,16 @@ export default {
 
 .logo {
   width: 150px; /* Adjust the size as needed */
-  margin-bottom: 10px; /* Adjust the spacing as needed */
+  margin-bottom: 10px; /* Reduced spacing */
 }
 
 .page-title {
   font-size: 1.5em; /* Adjust the size as needed */
   color: white;
-  background-color: $accent;
+  background-color: $secondary;
   padding: 5px 10px;
   border-radius: 5px;
-  margin-bottom: 10px; /* Adjust the spacing as needed */
+  margin-bottom: 10px; /* Reduced spacing */
 }
 
 .button-group {
@@ -150,5 +150,31 @@ export default {
   margin-top: 10px;
   border: 2px solid $positive; /* Red border */
   width: 100%;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 100px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .page-title {
+    font-size: 1.2em;
+    padding: 3px 8px;
+    margin-bottom: 5px; /* Further reduced spacing */
+  }
+
+  .full-width {
+    margin-bottom: 5px;
+  }
+
+  .back-button {
+    margin-top: 5px;
+  }
 }
 </style>
