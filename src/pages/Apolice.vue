@@ -1,10 +1,8 @@
 <template>
   <q-page class="apolice-page text-center">
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
-      <img src="palmalogo.png" alt="Logo" class="logo">
-      <div class="page-title text-bold">
-        Apólice
-      </div>
+      <img src="palmalogo.png" alt="Logo" class="logo" />
+      <div class="page-title text-bold">Apólice</div>
 
       <div class="button-group">
         <q-btn
@@ -35,40 +33,36 @@
 
 <script>
 export default {
-  name: 'ApolicePage',
+  name: "ApolicePage",
   methods: {
     viewApolice() {
-      window.open('https://vitae-erp.com/61-666.pdf', '_blank');
+      window.open("https://vitae-erp.com/61-666.pdf", "_blank");
     },
     goBack() {
-      this.$router.push('/menu');
-    }
-  }
-}
+      this.$router.push("/menu");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/quasar.variables.scss';
-
+@import "src/css/quasar.variables.scss";
 $primary-color: rgba(209, 36, 33, 1);
 $grey-color: rgba(128, 128, 128, 1);
 $white-color: rgba(255, 255, 255, 1);
-
 .apolice-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('~@/assets/bg.png') no-repeat center center;
+  background: url("~@/assets/bg.png") no-repeat center center;
   background-size: cover;
 }
-
 .content-wrapper {
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
-
 .page-title {
   font-size: 2em;
   color: white;
@@ -78,13 +72,11 @@ $white-color: rgba(255, 255, 255, 1);
   display: inline-block;
   margin-bottom: 20px;
 }
-
 .button-group {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .full-width {
   width: 100%;
   margin-bottom: 10px;
