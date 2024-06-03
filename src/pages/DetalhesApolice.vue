@@ -1,8 +1,6 @@
 <template>
   <q-page class="detalhes-apolice-page text-center">
     <div class="content-wrapper q-pa-lg q-gutter-y-lg">
-      <img src="palmalogo.png" alt="Logo" class="logo">
-
       <div class="page-title text-bold">
         Detalhes da Apólice
       </div>
@@ -15,11 +13,11 @@
               <td>AAA-123MC</td>
             </tr>
             <tr>
-              <td>Nome do Cliente:</td>
+              <td>Cliente:</td>
               <td>Olegario Mariquele</td>
             </tr>
             <tr>
-              <td>Marca da Viatura:</td>
+              <td>Viatura:</td>
               <td>HONDA FIT</td>
             </tr>
             <tr>
@@ -35,15 +33,15 @@
               <td>Contra Terceiros</td>
             </tr>
             <tr>
-              <td>Data de Emissão:</td>
+              <td>Emissão:</td>
               <td>12/01/2024</td>
             </tr>
             <tr>
-              <td>Data de Validade:</td>
+              <td>Validade:</td>
               <td>12/06/2024</td>
             </tr>
             <tr>
-              <td>Apólice em vigor:</td>
+              <td>Apólice:</td>
               <td>PALMA/PVT/061-666</td>
             </tr>
             <tr>
@@ -58,6 +56,7 @@
       </div>
       <div class="button-group">
         <q-btn
+          @click="openPaymentDialog('mpesa')"
           unelevated
           rounded
           size="xl"
@@ -67,6 +66,7 @@
           <img src="mpesa-logo-vd.png" alt="Mpesa Logo" class="payment-logo">
         </q-btn>
         <q-btn
+          @click="openPaymentDialog('emola')"
           unelevated
           rounded
           size="xl"
@@ -91,16 +91,118 @@
         />
       </div>
     </div>
+
+    <!-- Payment Dialog -->
+    <q-dialog v-model="paymentDialog">
+      <q-card>
+        <q-card-section>
+          <div class="text-center">
+            <img :src="dialogLogo" alt="Payment Logo" class="dialog-logo">
+          </div>
+          <q-form @submit="onPaymentSubmit" class="q-pt-lg">
+            <q-input
+              outlined
+              v-model="preferedAmount"
+              type="number"
+              label="Valor a pagar"
+              input-style="font-size: 20pt"
+              lazy-rules
+              :rules="[
+                val => val && val > 0 || 'Por favor, insira algum valor',
+                val => val && val <= amount || 'O valor a pagar não pode ser superior ao valor da factura'
+              ]"
+            />
+            <q-input
+              outlined
+              v-model="phone"
+              label="Número de Telefone"
+              lazy-rules
+              input-style="font-size: 20pt"
+              mask="#########"
+              :rules="[ val => val && val.length > 0 || 'Por favor, insira o número']"
+            />
+            <div class="q-gutter-y-md">
+              <q-btn
+                type="submit"
+                :color="paymentType === 'mpesa' ? 'red' : 'orange'"
+                unelevated
+                label="Confirmar"
+                rounded
+                size="lg"
+                no-caps
+                class="full-width"
+              />
+              <q-btn
+                @click="paymentDialog = false"
+                flat
+                icon="arrow_left"
+                label="Cancelar"
+                color="primary"
+                rounded
+                size="md"
+                no-caps
+                class="full-width"
+              />
+            </div>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <!-- Confirmation Dialog -->
+    <q-dialog v-model="confirmationDialog">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Confirme o pin no seu celular</div>
+          <q-linear-progress :value="progress" height="10px" class="q-mt-md" />
+          <q-spinner class="q-mt-md" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 export default {
   name: 'DetalhesApolicePage',
-
+  data() {
+    return {
+      paymentDialog: false,
+      confirmationDialog: false,
+      paymentType: '',
+      preferedAmount: 0,
+      amount: 1200, // example amount
+      phone: '',
+      dialogLogo: '',
+      progress: 0
+    };
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    openPaymentDialog(type) {
+      this.paymentType = type;
+      this.dialogLogo = type === 'mpesa' ? 'mpesa-logo-vd.png' : 'emola.png';
+      this.preferedAmount = this.amount; // set default amount
+      this.paymentDialog = true;
+    },
+    onPaymentSubmit() {
+      this.paymentDialog = false;
+      this.confirmationDialog = true;
+      this.startProgress();
+    },
+    startProgress() {
+      this.progress = 0;
+      const interval = setInterval(() => {
+        if (this.progress < 1) {
+          this.progress += 0.01;
+        } else {
+          clearInterval(interval);
+          this.confirmationDialog = false;
+          this.$router.push('/apolice');
+        }
+      }, 100);
     }
   }
 }
@@ -128,15 +230,10 @@ $white-color: rgba(255, 255, 255, 1);
   text-align: center;
 }
 
-.logo {
-  width: 200px;
-  margin-bottom: 20px;
-}
-
 .page-title {
   font-size: 2em;
   color: white;
-  background-color: $primary;
+  background-color: $primary-color;
   padding: 10px 20px;
   border-radius: 5px;
   display: inline-block;
@@ -149,6 +246,10 @@ $white-color: rgba(255, 255, 255, 1);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  background-image: url('palmalogo.png'); /* Add the logo as background */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%; /* Adjust the size as needed */
 }
 
 .details-table {
@@ -185,8 +286,17 @@ $white-color: rgba(255, 255, 255, 1);
   height: auto;
 }
 
+.dialog-logo {
+  width: 150px;
+  height: auto;
+}
+
 .back-button {
   border: 2px solid $primary-color; /* Red border */
   color: $primary-color; /* Red text */
+}
+
+.full-width {
+  width: 100%;
 }
 </style>

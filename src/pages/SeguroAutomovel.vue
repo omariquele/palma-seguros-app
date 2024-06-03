@@ -9,6 +9,8 @@
 
       <div class="q-gutter-y-md input-group">
         <q-input
+        color="primary"
+        bg-color="info"
           filled
           label="Introduza a matrícula"
           v-model="serialNumber"
@@ -18,6 +20,8 @@
           hint="Formato: AAA - 123 - MP"
         />
         <q-input
+        color="primary"
+        bg-color="info"
           filled
           label="Introduza o seu número de celular"
           v-model="phone"
@@ -55,15 +59,16 @@
         />
       </div>
     </div>
-
+    <!-- // validate PIN Input //adriano -->
     <q-dialog v-model="otpDialog">
       <q-card>
         <q-card-section>
           <div class="text-h6">Insira o código OTP enviado para o seu celular</div>
           <q-spinner v-if="loading" />
           <div v-else class="otp-inputs">
+
             <q-input
-              v-for="(digit, index) in otp"
+             v-for="(digit, index) in otp"
               :key="index"
               v-model="otp[index]"
               maxlength="1"
@@ -156,7 +161,7 @@ $white-color: rgba(255, 255, 255, 1);
 }
 
 .page-title {
-  font-size: 1.5em; /* Adjust the size as needed */
+  font-size: 1.8em; /* Adjust the size as needed */
   color: white;
   background-color: $secondary;
   padding: 5px 10px;

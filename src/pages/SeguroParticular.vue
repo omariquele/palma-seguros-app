@@ -164,7 +164,7 @@ export default {
   }
 
   .page-title {
-    font-size: 1.2em;
+    font-size: 1.8em;
     padding: 3px 8px;
     margin-bottom: 5px; /* Further reduced spacing */
   }
