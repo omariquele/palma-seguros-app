@@ -54,7 +54,7 @@
           rounded
           size="xl"
           no-caps
-          class="full-width"
+          class="back-button"
         />
       </div>
     </div>
@@ -183,6 +183,12 @@ $white-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
   display: inline-block;
   margin-bottom: 20px;
+}
+
+.back-button {
+  margin-top: 10px;
+  border: 2px solid $positive; /* Red border */
+  width: 100%;
 }
 
 .input-group {

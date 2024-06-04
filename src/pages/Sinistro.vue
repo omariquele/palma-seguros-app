@@ -16,6 +16,7 @@
           size="xl"
           no-caps
           class="full-width"
+          icon="mdi-car-wrench"
         />
         <q-btn
           @click="baixarFormulario"
@@ -26,6 +27,7 @@
           size="xl"
           no-caps
           class="full-width"
+          icon="mdi-file-download"
         />
         <q-btn
           @click="goBack"
@@ -36,7 +38,7 @@
           rounded
           size="xl"
           no-caps
-          class="full-width"
+          class="back-button"
         />
       </div>
     </div>
@@ -98,6 +100,12 @@ $white-color: rgba(255, 255, 255, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.back-button {
+  margin-top: 10px;
+  border: 2px solid $positive; /* Red border */
+  width: 100%;
 }
 
 .full-width {

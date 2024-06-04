@@ -7,7 +7,13 @@
       </div>
       <!-- Add your map view content here -->
       <div class="map-container">
-        <p>A ultima localizacao da sua viatura: {{ matricula }}</p>
+        <p>A última localização da sua viatura: {{ matricula }}</p>
+        <img
+          src="map-image.png"
+          alt="Map Image"
+          class="map-image"
+          @click="openDialog"
+        >
       </div>
 
       <div class="button-group">
@@ -24,18 +30,83 @@
         />
       </div>
     </div>
+
+    <q-dialog v-model="dialogVisible">
+      <q-card>
+        <q-card-section>
+
+          <img src="palma.png" alt="Logo" class="logo">
+        </q-card-section>
+
+        <q-card-actions align="center" class="column">
+          <q-btn
+            @click="bloquearViatura"
+            unelevated
+            label="Bloquear Viatura"
+            color="primary"
+            rounded
+            size="xl"
+            no-caps
+            class="full-width"
+            icon="mdi-car-door-lock"
+          />
+          <q-btn
+            @click="reportarFurto"
+            unelevated
+            label="Reportar Furto"
+            color="secondary"
+            rounded
+            size="xl"
+            no-caps
+            class="full-width"
+            icon="mdi-robot-angry"
+          />
+          <q-btn
+            @click="closeDialog"
+            unelevated
+          
+          label="Voltar"
+          color="white"
+          text-color="primary"
+          rounded
+          size="xl"
+          no-caps
+          class="back-button"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 export default {
   name: 'MapviewPage',
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
   computed: {
     matricula() {
       return this.$route.query.matricula || '';
     }
   },
   methods: {
+    openDialog() {
+      this.dialogVisible = true;
+    },
+    closeDialog() {
+      this.dialogVisible = false;
+    },
+    bloquearViatura() {
+      alert('Bloquear Viatura clicked');
+      this.closeDialog();
+    },
+    reportarFurto() {
+      alert('Reportar Furto clicked');
+      this.closeDialog();
+    },
     goBack() {
       this.$router.push('/rastreio');
     }
@@ -83,10 +154,23 @@ $white-color: rgba(255, 255, 255, 1);
   margin-bottom: 20px;
 }
 
+.map-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .button-group {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.back-button {
+  margin-top: 10px;
+  border: 2px solid $positive; /* Red border */
+  width: 100%;
 }
 
 .full-width {
