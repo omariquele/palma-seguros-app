@@ -72,8 +72,8 @@
               :key="index"
               v-model="otp[index]"
               maxlength="1"
-              type="tel"
               class="otp-input"
+              mask="#"
             />
           </div>
         </q-card-section>

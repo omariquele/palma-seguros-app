@@ -8,8 +8,8 @@
 
       <div class="input-group">
         <q-input
-        color="primary"
-        bg-color="info"
+          color="primary"
+          bg-color="info"
           filled
           label="Introduza a matrícula"
           v-model="matricula"
@@ -18,11 +18,24 @@
           mask="AAA - ### - AA"
           hint="Formato: AAA - 123 - MP"
         />
+
+        <q-input
+        color="primary"
+        bg-color="info"
+          filled
+          label="Introduza o seu número de celular"
+          v-model="phone"
+          class="full-width"
+          :prefix="phonePrefix"
+          input-style="font-size: 20pt"
+          mask="#########"
+          hint="Formato: (258) ##-###-####"
+        />
       </div>
 
       <div class="button-group">
         <q-btn
-          @click="rastrear"
+          @click="requestOtp"
           unelevated
           label="Rastrear"
           color="primary"
@@ -46,10 +59,39 @@
       </div>
     </div>
 
+    <!-- OTP Dialog -->
+    <q-dialog v-model="otpDialog">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Insira o código OTP enviado para o seu celular</div>
+          <div class="otp-inputs q-mt-md">
+            <q-input
+              v-for="(digit, index) in otp"
+              :key="index"
+              v-model="otp[index]"
+              @input="onOtpInput(index)"
+              maxlength="1"
+              type="tel"
+              class="otp-input"
+              dense
+              outlined
+              mask="#"
+              :ref="'otp' + index"
+            />
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn flat label="Verificar" color="primary" @click="verifyOtp" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!-- Searching Dialog -->
     <q-dialog v-model="searchingDialog">
       <q-card>
         <q-card-section>
-          <div class="text-h6">Procurando Matrícula: {{ matricula }}</div>
+          <div class="text-h6">Procurando a viatura com Matrícula: {{ matricula }}</div>
           <q-linear-progress :value="progress" height="10px" class="q-mt-md" />
           <q-spinner class="q-mt-md" />
         </q-card-section>
@@ -64,14 +106,33 @@ export default {
   data() {
     return {
       matricula: '',
+      otp: ['', '', '', ''],
+      otpDialog: false,
       searchingDialog: false,
       progress: 0
     };
   },
   methods: {
-    rastrear() {
-      this.searchingDialog = true;
-      this.startProgress();
+    requestOtp() {
+      this.otpDialog = true;
+    },
+    onOtpInput(index) {
+      // Ensure the input only contains numbers
+      this.otp[index] = this.otp[index].replace(/\D/g, '');
+      // Move to the next input if current one is filled
+      if (this.otp[index].length === 1 && index < this.otp.length - 1) {
+        this.$refs['otp' + (index + 1)][0].focus();
+      }
+    },
+    verifyOtp() {
+      const otpCode = this.otp.join('');
+      if (otpCode.length === 4) {
+        this.otpDialog = false;
+        this.searchingDialog = true;
+        this.startProgress();
+      } else {
+        alert('OTP incompleto');
+      }
     },
     startProgress() {
       this.progress = 0;
@@ -124,8 +185,6 @@ $white-color: rgba(255, 255, 255, 1);
   margin-bottom: 20px;
 }
 
-
-
 .input-group {
   margin-bottom: 20px;
 }
@@ -141,12 +200,20 @@ $white-color: rgba(255, 255, 255, 1);
   margin-bottom: 10px;
 }
 
+.otp-inputs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.otp-input {
+  width: 50px;
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   .content-wrapper {
     padding: 0 10px;
   }
-
-
 
   .page-title {
     font-size: 1.5em;
